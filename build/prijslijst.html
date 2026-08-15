@@ -1,0 +1,522 @@
+<!doctype html>
+<!--
+  Prijslijst — gevoed door Google Sheets. Zie SETUP.md voor de instelstappen.
+  Zelftest: open deze pagina met #selftest en bekijk de console.
+-->
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prijslijst — S&amp;A Freshlevering</title>
+<meta name="description" content="Actuele prijslijst voor verse groenten en fruit. Zakelijk exclusief BTW, particulier inclusief BTW.">
+<link rel="icon" href="img/mark.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/mark.svg">
+<meta name="theme-color" content="#1b4d2e">
+<link rel="stylesheet" href="brand.css">
+<style>
+  .page-head{background:var(--primary);color:var(--on-primary);padding-block:32px}
+  .page-head h1{color:#fff}
+  .page-head p{color:#cfe6d4;margin:8px 0 0}
+  .back{display:inline-flex;align-items:center;gap:6px;color:var(--primary);
+    text-decoration:none;font:600 14px/1 Inter,sans-serif;min-height:44px;
+    padding:0 8px 0 0;margin-left:-2px}
+  .back:hover{text-decoration:underline}
+
+  .controls{position:sticky;top:72px;z-index:30;background:var(--card);
+    border-bottom:1px solid var(--line);padding-block:12px}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  #q{flex:1 1 260px;min-height:48px;padding:10px 16px;font:inherit;
+    border:1px solid var(--line-strong);border-radius:var(--r);background:var(--card)}
+  #q:focus{border-color:var(--accent)}
+  .modes{display:flex;border:1px solid var(--line-strong);border-radius:var(--r);
+    overflow:hidden;background:var(--card);flex:1 1 240px}
+  .modes button{flex:1;min-height:48px;padding:0 18px;border:0;background:transparent;
+    font:600 15px/1 Inter,sans-serif;color:var(--muted);cursor:pointer}
+  .modes button[aria-pressed="true"]{background:var(--primary);color:#fff}
+  /* Chip strip: fades at the right edge while more chips remain, so it reads as
+     swipeable. .chips-wrap owns the fade; .chips owns the scrolling. */
+  .chips-wrap{position:relative;margin-top:14px}
+  .chips-wrap::after{
+    content:"\203A";                       /* chevron, sits on top of the fade */
+    position:absolute;right:0;top:0;bottom:12px;width:60px;
+    display:flex;align-items:center;justify-content:flex-end;
+    padding-right:10px;font:400 22px/1 Inter,sans-serif;color:var(--primary);
+    pointer-events:none;opacity:0;transition:opacity .2s;
+    background:linear-gradient(90deg,transparent,var(--card) 60%)}
+  .chips-wrap[data-more="true"]::after{opacity:1}
+  .chips-wrap[data-more="true"] .chips{padding-right:44px}
+  .chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 12px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:thin;scrollbar-color:var(--primary) var(--surface-container-low,#e7eee5)}
+  .chips::-webkit-scrollbar{height:8px}
+  .chips::-webkit-scrollbar-track{background:#e7eee5;border-radius:999px}
+  .chips::-webkit-scrollbar-thumb{background:var(--primary);border-radius:999px}
+  .chips::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+
+  /* Desktop has the width for all 15 chips, so wrap them instead of making a
+     mouse user drag a horizontal scroller. No scrollbar, no fade, no chevron. */
+  @media(min-width:900px){
+    .chips{flex-wrap:wrap;overflow:visible;padding-bottom:2px;row-gap:10px}
+    .chips-wrap::after{display:none}
+    .chips-wrap[data-more="true"] .chips{padding-right:0}
+  }
+  .chips button{white-space:nowrap;min-height:44px;padding:0 16px;cursor:pointer;
+    border:1px solid var(--line-strong);border-radius:999px;background:var(--card);
+    font:inherit;font-size:14px;color:var(--ink)}
+  .chips button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);
+    color:var(--on-accent);font-weight:600}
+  .meta{color:var(--muted);font-size:14px;margin:10px 0 0}
+
+  main{padding-bottom:120px}
+  .cat{font-family:Lora,serif;font-size:24px;color:var(--primary);margin:36px 0 12px;
+    padding-bottom:8px;border-bottom:2px solid var(--accent)}
+  @media(min-width:900px){.cat{font-size:32px}}
+
+  .item{display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:center;
+    background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+    padding:12px 14px;margin-bottom:8px}
+  .item.out{background:var(--surface-low);color:var(--disabled)}
+  .name{font:600 15px/1.3 Inter,sans-serif}
+  .unit{color:var(--muted);font-size:13px}
+  .item.out .unit{color:var(--disabled)}
+  .price{font:700 18px/1.3 Inter,sans-serif;font-variant-numeric:tabular-nums;
+    white-space:nowrap;text-align:right}
+  .price small{display:block;font:400 11px/1.2 Inter,sans-serif;color:var(--muted)}
+  .pill{display:inline-block;font:700 11px/1 Inter,sans-serif;letter-spacing:.04em;
+    text-transform:uppercase;padding:5px 10px;border-radius:999px}
+  .pill-day{background:var(--day-bg);color:var(--day-ink)}
+  .pill-season{background:var(--season-bg);color:var(--season-ink);margin-left:8px}
+  .pill-out{background:var(--out-bg);color:var(--out-ink)}
+  .add{min-width:44px;min-height:44px;border-radius:50%;border:1px solid var(--primary);
+    background:var(--card);color:var(--primary);font-size:22px;font-weight:700;
+    cursor:pointer;line-height:1}
+  .add:hover{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+  .qty{display:flex;align-items:center;gap:4px}
+  .qty button{min-width:40px;min-height:40px;border-radius:var(--r-sm);
+    border:1px solid var(--line-strong);background:var(--card);font:inherit;
+    font-weight:700;cursor:pointer}
+  .qty span{min-width:30px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+  .empty{padding:48px 0;text-align:center;color:var(--muted)}
+
+  .terms{margin:36px 0;padding:20px;background:var(--day-bg);border-radius:var(--r);
+    font-size:15px;color:var(--muted)}
+  .terms strong{color:var(--ink)}
+
+  .orderbar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--primary);
+    padding:10px 16px;display:flex;gap:10px;align-items:center;box-shadow:var(--shadow-bar)}
+  .orderbar[hidden]{display:none}
+  .orderbar .count{color:#fff;font-weight:600;flex:1}
+  .orderbar .clear{background:transparent;border:1px solid #5e8a6c;color:#cfe6d4;
+    border-radius:var(--r);min-height:44px;padding:0 14px;font:inherit;cursor:pointer}
+
+  @media print{
+    .site-header,.controls,.orderbar,.actionbar,.page-head p,#pdf,.back{display:none!important}
+    body{background:#fff;padding:0}
+    main{padding-bottom:0}
+    .item{break-inside:avoid;border:0;border-bottom:1px solid #ccc;border-radius:0;
+      padding:6px 0;margin:0;box-shadow:none}
+    .cat{break-after:avoid;font-size:16pt;margin:14pt 0 6pt}
+    .page-head{background:#fff;color:#000;padding:0 0 8pt}
+    .page-head h1{color:#000}
+    .terms{background:#fff;border:1px solid #ccc}
+    .add,.qty{display:none}
+  }
+</style>
+<style>
+  /* the order bar owns the bottom edge here, so lift the contact cluster */
+  body.has-order{--bar-offset:68px}
+  @media(max-width:899px){ body.has-order .actionbar{display:none} }
+  .actionbar a span{display:inline}
+  @media(min-width:900px){.actionbar a span{display:none}}
+
+  @media print{
+    .site-header,.controls,.orderbar,.actionbar,.page-head p,#pdf,.back{display:none!important}
+    body{background:#fff;padding:0}
+    main{padding-bottom:0}
+    .item{break-inside:avoid;border:0;border-bottom:1px solid #ccc;border-radius:0;
+      padding:6px 0;margin:0;box-shadow:none}
+    .cat{break-after:avoid;font-size:16pt;margin:14pt 0 6pt}
+    .page-head{background:#fff;color:#000;padding:0 0 8pt}
+    .page-head h1{color:#000}
+    .terms{background:#fff;border:1px solid #ccc}
+    .add,.qty{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="index.html">
+      <img src="img/logo-mark.svg" alt="" width="40" height="40">
+      <span class="logo-txt"><b>S&amp;A</b><span>FRESHLEVERING</span></span>
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false" aria-controls="mainnav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <nav class="nav" id="mainnav" aria-label="Hoofdmenu">
+      <a href="index.html">Home</a>
+      <a href="prijslijst.html" aria-current="page">Prijslijst</a>
+      <a href="index.html#hoe">Hoe het werkt</a>
+      <a href="index.html#zakelijk">Zakelijk</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="header-cta">
+      <a class="btn btn-ghost" href="tel:+31683415676">06 83 41 56 76</a>
+      <a class="btn btn-wa" href="https://wa.me/31683415676" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="wrap">
+    <h1>Prijslijst</h1>
+    <p>Verse groenten en fruit. Voor 22:00 besteld, volgende ochtend geleverd.</p>
+  </div>
+</div>
+
+<div class="controls">
+  <div class="wrap">
+    <a class="back" href="index.html">← Terug naar home</a>
+    <div class="row">
+      <label for="q" style="position:absolute;left:-9999px">Zoek product</label>
+      <input id="q" type="search" placeholder="Zoek product, bijv. tomaat…" autocomplete="off">
+      <div class="modes" role="group" aria-label="Prijsweergave">
+        <button id="m-b2b" aria-pressed="true">Zakelijk</button>
+        <button id="m-b2c" aria-pressed="false">Particulier</button>
+      </div>
+    </div>
+    <div class="chips-wrap" id="chipsWrap">
+      <div class="chips" id="chips" role="group" aria-label="Categorie"></div>
+    </div>
+    <p class="meta" id="meta">Laden…</p>
+  </div>
+</div>
+
+<main class="wrap" id="list" aria-live="polite"></main>
+
+<div class="wrap">
+  <div class="terms" id="terms"></div>
+  <p><button type="button" class="btn btn-ghost" id="pdf">Prijslijst afdrukken of opslaan als PDF</button></p>
+</div>
+
+<div class="orderbar" id="bar" hidden>
+  <span class="count" id="count"></span>
+  <button class="clear" id="clear">Wissen</button>
+  <a class="btn btn-wa" id="wa" href="#" target="_blank" rel="noopener">Stuur via WhatsApp</a>
+</div>
+
+<script>
+// ---- config -----------------------------------------------------------
+const SHEET_CSV_URL = "";                        // ← gepubliceerde CSV-URL van het Sheet
+const FALLBACK_CSV_URL = "prijslijst-template.csv";
+const WA_NUMBER = "31683415676";
+const CACHE_MS = 10 * 60 * 1000;
+
+// ---- csv --------------------------------------------------------------
+// Quote-aware: product names contain commas and quotes.
+function parseCSV(text){
+  const rows=[]; let row=[], f="", q=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(q){
+      if(c==='"'){ if(text[i+1]==='"'){f+='"';i++;} else q=false; }
+      else f+=c;
+    } else if(c==='"') q=true;
+    else if(c===','){ row.push(f); f=""; }
+    else if(c==='\n'){ row.push(f); rows.push(row); row=[]; f=""; }
+    else if(c!=='\r') f+=c;
+  }
+  if(f!==""||row.length){ row.push(f); rows.push(row); }
+  if(!rows.length) return [];
+  const head=rows[0].map(h=>h.trim().toLowerCase());
+  return rows.slice(1)
+    .filter(r=>r.length>1 && r[0] && !r[0].trim().startsWith("#"))
+    .map(r=>Object.fromEntries(head.map((h,i)=>[h,(r[i]??"").trim()])));
+}
+
+// ---- money ------------------------------------------------------------
+// Sheet holds ex-BTW only. Consumers must see incl-BTW (wettelijk verplicht).
+// btw blank -> 9, the NL rate for all fresh produce.
+function priceFor(item, mode){
+  const ex = parseFloat(item.prijs_ex);
+  if(!isFinite(ex)) return null;
+  if(mode==="b2b") return ex;
+  const rate = parseFloat(item.btw);
+  return Math.round(ex * (1 + (isFinite(rate)?rate:9)/100) * 100) / 100;
+}
+const euro = n => "€ " + n.toFixed(2).replace(".", ",");
+const isOut = it => (it.status||"").toLowerCase()==="uitverkocht";
+const isDay = it => (it.status||"").toLowerCase()==="dagprijs" || !isFinite(parseFloat(it.prijs_ex));
+
+// ---- state ------------------------------------------------------------
+// Mode precedence: ?mode= wins, then localStorage, then Zakelijk.
+function initialMode(){
+  const p=new URLSearchParams(location.search).get("mode");
+  if(p==="b2b"||p==="b2c") return p;
+  const s=localStorage.getItem("sa-mode");
+  return (s==="b2b"||s==="b2c") ? s : "b2b";
+}
+function initialCats(){
+  const p=new URLSearchParams(location.search).get("cat");
+  return p ? p.split(",").map(c=>c.trim()).filter(Boolean) : [];
+}
+let items=[], mode=initialMode(), cat="", catSet=initialCats(), query="";
+let basket=JSON.parse(localStorage.getItem("sa-basket")||"{}");
+const key = it => it.categorie+"|"+it.product+"|"+it.eenheid;
+const save = () => localStorage.setItem("sa-basket", JSON.stringify(basket));
+
+// ---- basket -----------------------------------------------------------
+// Returns false when the item may not be added, so uitverkocht is blocked at
+// the source rather than only hidden in the UI.
+function addToBasket(it, delta){
+  if(isOut(it) && delta>0) return false;
+  const k=key(it), cur=basket[k]?.n||0, next=Math.max(0, cur+delta);
+  if(next===0) delete basket[k];
+  else basket[k]={n:next, product:it.product, eenheid:it.eenheid};
+  save(); return true;
+}
+function waMessage(){
+  const lines=Object.values(basket).filter(b=>b.n>0);
+  if(!lines.length) return "";
+  return "Hallo S&A Freshlevering, ik wil graag bestellen:\n\n"
+    + lines.map(b=>`- ${b.n}x ${b.product} (${b.eenheid})`).join("\n")
+    + "\n\nBezorgadres:\nGewenste bezorgdag:";
+}
+
+// ---- render -----------------------------------------------------------
+function visible(){
+  const q=query.toLowerCase();
+  return items.filter(it=>{
+    if(mode==="b2c" && String(it.b2c).toUpperCase()!=="TRUE") return false;
+    if(cat && it.categorie!==cat) return false;
+    if(!cat && catSet.length && !catSet.includes(it.categorie)) return false;
+    if(q && !(it.product+" "+it.categorie).toLowerCase().includes(q)) return false;
+    return true;
+  });
+}
+const esc = s => String(s).replace(/[&<>"']/g, c =>
+  ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+function render(){
+  const rows=visible(), list=document.getElementById("list");
+  if(!rows.length){
+    list.innerHTML='<p class="empty">Niets gevonden. Probeer een andere zoekterm.</p>';
+  } else {
+    let html="", last="";
+    for(const it of rows){
+      if(it.categorie!==last){
+        html+=`<h2 class="cat" id="${esc(it.categorie.toLowerCase())}">${esc(it.categorie)}</h2>`;
+        last=it.categorie;
+      }
+      const out=isOut(it), p=priceFor(it,mode);
+      const season=(it.status||"").toLowerCase()==="seizoen";
+      let priceHTML;
+      if(out)           priceHTML='<span class="pill pill-out">Uitverkocht</span>';
+      else if(isDay(it))priceHTML='<span class="pill pill-day">Dagprijs</span>';
+      else priceHTML=`${euro(p)}<small>${mode==="b2b"?"ex. BTW":"incl. BTW"}</small>`;
+      const k=key(it), n=basket[k]?.n||0;
+      html+=`<div class="item${out?" out":""}">
+        <div><span class="name">${esc(it.product)}</span>
+          ${season?'<span class="pill pill-season">Seizoen</span>':""}
+          <div class="unit">${esc(it.eenheid)}</div></div>
+        <div class="price">${priceHTML}</div>
+        <div>${out?"":n
+          ? `<div class="qty"><button data-k="${esc(k)}" data-d="-1" aria-label="Minder ${esc(it.product)}">−</button>
+             <span>${n}</span>
+             <button data-k="${esc(k)}" data-d="1" aria-label="Meer ${esc(it.product)}">+</button></div>`
+          : `<button class="add" data-k="${esc(k)}" data-d="1" aria-label="Voeg ${esc(it.product)} toe">+</button>`}</div>
+      </div>`;
+    }
+    list.innerHTML=html;
+  }
+  renderBar();
+}
+
+function renderBar(){
+  const lines=Object.values(basket).filter(b=>b.n>0);
+  const bar=document.getElementById("bar");
+  bar.hidden = lines.length===0;
+  document.body.classList.toggle("has-order", lines.length>0);
+  if(!lines.length) return;
+  const total=lines.reduce((s,b)=>s+b.n,0);
+  document.getElementById("count").textContent =
+    `${total} ${total===1?"artikel":"artikelen"} in je lijst`;
+  document.getElementById("wa").href =
+    `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(waMessage())}`;
+}
+
+function renderChips(){
+  const cats=[...new Set(items.map(i=>i.categorie))];
+  document.getElementById("chips").innerHTML =
+    [["","Alles"],...cats.map(c=>[c,c])]
+    .map(([v,l])=>`<button data-c="${esc(v)}" aria-pressed="${v===cat}">${esc(l)}</button>`).join("");
+  // called three ways: layout is not always settled on the first frame
+  updateChipHint();
+  requestAnimationFrame(updateChipHint);
+  setTimeout(updateChipHint, 60);
+}
+
+function updateChipHint(){
+  const w=document.getElementById("chipsWrap"), c=document.getElementById("chips"),
+        h=null;
+  if(!w||!c) return;
+  const more = c.scrollWidth - c.clientWidth - c.scrollLeft > 8;
+  w.setAttribute("data-more", String(more));
+}
+document.getElementById("chips").addEventListener("scroll", updateChipHint, {passive:true});
+addEventListener("resize", updateChipHint);
+addEventListener("load", updateChipHint);
+if(window.ResizeObserver) new ResizeObserver(updateChipHint).observe(document.getElementById("chips"));
+
+function renderTerms(){
+  document.getElementById("terms").innerHTML = mode==="b2b"
+    ? `<strong>Zakelijke levering.</strong> Alle prijzen zijn <strong>exclusief BTW</strong>.
+       Wij bezorgen gratis tot in uw keuken. Voor 22:00 besteld = volgende ochtend
+       geleverd, nalevering mogelijk tot 15:00. Dit is ons basisassortiment — in
+       overleg stellen wij een persoonlijke assortimentslijst samen.`
+    : `<strong>Particuliere levering.</strong> Alle prijzen zijn <strong>inclusief BTW</strong>.
+       Geen minimum bestelling. Voor 22:00 besteld = volgende ochtend geleverd.
+       Vragen? Bel of app <a href="tel:+31683415676">06 83 41 56 76</a>.`;
+}
+
+function setMode(m){
+  mode=m; localStorage.setItem("sa-mode",m);
+  document.getElementById("m-b2b").setAttribute("aria-pressed",String(m==="b2b"));
+  document.getElementById("m-b2c").setAttribute("aria-pressed",String(m==="b2c"));
+  render(); renderTerms();
+}
+
+// ---- events -----------------------------------------------------------
+document.getElementById("list").addEventListener("click", e=>{
+  const b=e.target.closest("[data-k]"); if(!b) return;
+  const it=items.find(i=>key(i)===b.dataset.k); if(!it) return;
+  if(addToBasket(it, +b.dataset.d)) render();
+});
+document.getElementById("clear").onclick=()=>{ basket={}; save(); render(); };
+document.getElementById("q").addEventListener("input", e=>{ query=e.target.value; render(); });
+document.getElementById("m-b2b").onclick=()=>setMode("b2b");
+document.getElementById("m-b2c").onclick=()=>setMode("b2c");
+document.getElementById("chips").addEventListener("click", e=>{
+  const b=e.target.closest("[data-c]"); if(!b) return;
+  cat=b.dataset.c; catSet=[]; renderChips(); render();
+});
+
+// ---- load -------------------------------------------------------------
+async function load(){
+  const url = SHEET_CSV_URL || FALLBACK_CSV_URL;
+  const meta=document.getElementById("meta");
+  const cached=(()=>{ try{
+    const c=JSON.parse(sessionStorage.getItem("sa-csv")||"null");
+    return (c && Date.now()-c.t < CACHE_MS) ? c.text : null;
+  }catch{ return null; } })();
+
+  let text=cached;
+  if(!text){
+    try{
+      const res=await fetch(url,{cache:"no-store"});
+      if(!res.ok) throw new Error("HTTP "+res.status);
+      text=await res.text();
+      try{ sessionStorage.setItem("sa-csv",JSON.stringify({t:Date.now(),text})); }catch{}
+    }catch(err){
+      console.error(err);
+      meta.textContent="Prijslijst tijdelijk niet beschikbaar. Bel of app 06 83 41 56 76.";
+    }
+  }
+  if(text){
+    items=parseCSV(text).filter(i=>i.product);
+    const d=new Date().toLocaleDateString("nl-NL",{day:"numeric",month:"long",year:"numeric"});
+    const shown = catSet.length ? visible().length : items.length;
+    meta.textContent = (catSet.length
+        ? `${shown} van ${items.length} producten · gefilterd`
+        : `${items.length} producten`)
+      + ` · prijzen bijgewerkt op ${d}`
+      + (SHEET_CSV_URL ? "" : " · DEMO-DATA, nog niet gekoppeld aan het Sheet");
+  }
+  renderChips(); setMode(mode);
+}
+
+document.getElementById("pdf").addEventListener("click",()=>window.print());
+
+// ---- selftest (open met #selftest) -------------------------------------
+function selftest(){
+  const a=(c,m)=>{ if(!c) throw new Error("SELFTEST FAILED: "+m); };
+
+  const r=parseCSV('categorie,product,eenheid,prijs_ex,btw,status,b2c\n'+
+    '"Groenten, vers","Kool ""grof""",Stuk,1.50,9,normaal,TRUE\n'+
+    '# comment,,,,,,\n'+
+    'Overig,Afwasmiddel,Fles,2.50,21,normaal,TRUE\n'+
+    'Groenten,Asperges,Bos,,,dagprijs,TRUE\n'+
+    'Uien,Spaanse ui,Baal 25 kg,13.95,,normaal,FALSE\n'+
+    'Groenten,Boerenkool,Kilo,1.20,,uitverkocht,TRUE\n');
+  a(r.length===5,"comment rows skipped");
+  a(r[0].categorie==="Groenten, vers","quoted comma");
+  a(r[0].product==='Kool "grof"',"escaped quote");
+
+  a(priceFor(r[0],"b2b")===1.50,"b2b shows ex BTW");
+  a(priceFor(r[0],"b2c")===1.64,"9% rounding 1.50 -> 1.64");
+  a(priceFor(r[1],"b2c")===3.03,"21% rounding 2.50 -> 3.03");
+  a(priceFor(r[3],"b2c")===15.21,"blank btw defaults to 9 (13.95 -> 15.21)");
+  a(priceFor(r[2],"b2b")===null,"blank price -> no number");
+  a(isDay(r[2]),"blank price is a dagprijs");
+
+  // b2c filtering hides wholesale packs
+  items=r; mode="b2c"; cat=""; query="";
+  a(!visible().some(i=>i.product==="Spaanse ui"),"b2c hides b2c=FALSE rows");
+  mode="b2b";
+  a(visible().some(i=>i.product==="Spaanse ui"),"b2b shows wholesale rows");
+
+  // search is case-insensitive
+  query="KOOL"; a(visible().length===2,"case-insensitive search matches Kool and Boerenkool");
+  query="";
+
+  // uitverkocht cannot be added
+  basket={};
+  a(isOut(r[4]),"row 4 is the uitverkocht fixture");
+  a(addToBasket(r[4],1)===false,"uitverkocht refuses to be added");
+  a(Object.keys(basket).length===0,"uitverkocht left no basket entry");
+
+  // quantities round-trip through localStorage
+  addToBasket(r[0],2);
+  a(JSON.parse(localStorage.getItem("sa-basket"))[key(r[0])].n===2,"quantity persisted");
+  addToBasket(r[0],-1);
+  a(basket[key(r[0])].n===1,"stepper decrements");
+
+  // whatsapp message body
+  const msg=waMessage();
+  a(msg.includes('- 1x Kool "grof" (Stuk)'),"message lists qty, product, unit");
+  a(msg.includes("Bezorgadres:")&&msg.includes("Gewenste bezorgdag:"),"message has address lines");
+
+  basket={}; save();
+  console.log("selftest OK — 20 checks passed");
+}
+if(location.hash==="#selftest") selftest(); else load();
+</script>
+<nav class="actionbar" aria-label="Direct contact">
+  <a class="btn-call" href="tel:+31683415676" data-label="Bel ons" aria-label="Bel 06 83 41 56 76"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg><span>Bel</span></a>
+  <a class="btn-wa" href="https://wa.me/31683415676" target="_blank" rel="noopener" data-label="WhatsApp" aria-label="Stuur een WhatsApp-bericht"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.2.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.7.7-1 1.6-.9 2.5.2 1.4 1.1 2.7 1.3 2.9.2.2 2.1 3.3 5.2 4.5 1.9.7 2.7.8 3.6.7.6-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.2-.2-.5-.3z"/></svg><span>WhatsApp</span></a>
+</nav>
+<script>
+(function(){
+  var b=document.getElementById("menuBtn"), n=document.getElementById("mainnav");
+  if(!b||!n) return;
+  function set(open){
+    n.setAttribute("data-open",String(open));
+    b.setAttribute("aria-expanded",String(open));
+  }
+  b.addEventListener("click",function(e){
+    e.stopPropagation();                       // don't trip the outside-click handler
+    set(n.getAttribute("data-open")!=="true");
+  });
+  // close on: a link, a click anywhere outside, Escape, or resizing up to desktop
+  n.addEventListener("click",function(e){ if(e.target.closest("a")) set(false); });
+  document.addEventListener("click",function(e){
+    if(n.getAttribute("data-open")!=="true") return;
+    if(!n.contains(e.target) && !b.contains(e.target)) set(false);
+  });
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape" && n.getAttribute("data-open")==="true"){ set(false); b.focus(); }
+  });
+  addEventListener("resize",function(){ if(innerWidth>=900) set(false); });
+})();
+</script>
+</body>
+</html>

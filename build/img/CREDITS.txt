@@ -1,0 +1,34 @@
+Foto's — herkomst en licentie
+=============================
+
+Alle zeven foto's komen van Unsplash en vallen onder de Unsplash License:
+gratis te gebruiken, ook commercieel, naamsvermelding niet verplicht.
+https://unsplash.com/license
+
+  hero.jpg                unsplash photo-1557844352-761f2565b576
+  groenten.jpg            unsplash photo-1540420773420-3366772f4999
+  fruit.jpg               unsplash photo-1610832958506-aa56368176cf
+  aardappelen-uien.jpg    unsplash photo-1742389601451-e2327a5e6ef9
+  kruiden-cressen.jpg     unsplash photo-1551772413-6c1b7dc18548
+  champignons.jpg         unsplash photo-1552825898-07e419204683
+  gesneden-groenten.jpg   unsplash photo-1598295309854-cfa5819004d8
+
+Dit zijn stockfoto's. Ze mogen blijven staan, maar eigen foto's van uw eigen
+producten werken altijd beter. Vervang een bestand door een eigen foto met
+dezelfde naam — de website pikt het automatisch op.
+
+De .svg-bestanden zijn tekeningen die alleen gebruikt worden als de
+bijbehorende .jpg ontbreekt.
+
+LOGO / BEELDMERK
+----------------
+  logo-mark.png   het schild-met-blaadje beeldmerk (bron: icons/logo.png)
+  mark.svg        vereenvoudigde versie, alleen voor favicon en app-icoon
+
+De line-art versie is te fijn voor kleine formaten en verdwijnt op een donker
+browsertabblad. Daarom staat op het tabblad een vereenvoudigde versie met een
+volvlak groene achtergrond.
+
+Vraag bij de ontwerper het ORIGINELE VECTORBESTAND (.svg of .ai) op. Nu is er
+alleen een PNG; die wordt korrelig op groot formaat, bijvoorbeeld op een
+bestelbus of in drukwerk.

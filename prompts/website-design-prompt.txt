@@ -1,0 +1,493 @@
+S&A FRESHLEVERING — DESIGN & BUILD PROMPTS (v5)
+================================================
+Sources: card.jpg (business card), list.pdf (competitor list — structure sample only)
+
+This file holds TWO tracks. Each is self-contained. Pick one, or use both.
+
+  TRACK 1 — GOOGLE STITCH   visual design, screen by screen. Prompts A–D.
+  TRACK 2 — CLAUDE          the working build, one prompt. Prompt E.
+
+  Recommended: run Track 1 first, export the Figma/screenshots, then paste
+  Prompt E to Claude together with those screenshots. Stitch settles the looks,
+  Claude builds the thing that actually works.
+
+  Never paste the whole file into either tool. Paste one prompt block at a time.
+
+
+╔══════════════════════════════════════════════════════════════════╗
+║  TRACK 1 — GOOGLE STITCH                                         ║
+╚══════════════════════════════════════════════════════════════════╝
+
+Stitch designs ONE SCREEN PER PROMPT and ignores logic, data and business
+rules. Keep prompts visual.
+
+1. New project in Stitch, switch to Experimental mode (better quality, accepts
+   image input).
+2. Upload card.jpg as a style reference.
+3. Paste PROMPT A. Let it generate.
+4. Paste PROMPT B, C, D as separate new screens in the same project.
+5. Use the REFINEMENTS at the end of this track as follow-up messages on a
+   generated screen — one change per message. Stitch handles small edits far
+   better than long rewrites.
+
+
+────────────────────────────────────────────────────────────────────
+PROMPT A — STYLE (paste first, as its own screen or theme prompt)
+────────────────────────────────────────────────────────────────────
+
+A website for "S&A Freshlevering", a Dutch fresh fruit and vegetable delivery
+company serving restaurants and households. All UI copy in Dutch.
+
+Style: clean, fresh, trustworthy, food-market. Lots of white space, generous
+padding, rounded corners at 14px, very soft shadows. Feels premium but
+approachable — a good local greengrocer, not a supermarket chain.
+
+Colors: deep forest green #1B4D2E for headers, footers and primary buttons.
+Fresh leaf green #4CAF2F for accents, highlights and active states. Off-white
+#F7F9F5 page background. White #FFFFFF cards. Charcoal #1F2421 body text.
+WhatsApp green #25D366 only on WhatsApp buttons.
+
+Typography: serif headings (Lora), clean sans body text (Inter). Headings are
+large and confident. Body text is comfortable, line height 1.6.
+
+Recurring graphic: a soft organic curved swoosh divider in deep green with a
+thin lime-green outline, used to separate the hero from the content and above
+the footer. Maximum two per page.
+
+Photography: bright high-key close-up produce — lettuce, green apples, kiwi,
+grapes, lime, broccoli, carrots in a wooden crate — on a white background in
+natural daylight, shallow depth of field. Never dark or moody.
+
+Logo in the header: a serif "S&A" monogram with a small green leaf sprout
+above the ampersand, with "FRESHLEVERING" underneath in condensed uppercase
+letters and the small wide-spaced tagline "BEZORGEN VAN GROENTEN EN FRUIT".
+Never render the logo narrower than about 160px — the serif monogram and the
+condensed sans wordmark stop reading as one lockup below that.
+
+Avoid: gradients, heavy shadows, oversized empty areas, decorative
+illustrations, generic startup or SaaS aesthetics, e-commerce grid layouts,
+inconsistent corner radii, inconsistent button styles, dark food photography.
+The target feeling is a premium local greengrocer that also serves
+professional kitchens.
+
+
+────────────────────────────────────────────────────────────────────
+PROMPT B — HOMEPAGE (desktop)
+────────────────────────────────────────────────────────────────────
+
+Design a desktop homepage for S&A Freshlevering, a Dutch company that delivers
+fresh fruit and vegetables to restaurants and households. All copy in Dutch.
+They sell fresh produce only — never show dairy, cheese, eggs, juice or
+household products anywhere on the page.
+
+Sticky header on a white background: the S&A Freshlevering logo on the left,
+sitting inside the header bar on the same line as the navigation with no box
+around it. Navigation links in the middle reading "Prijslijst", "Hoe het
+werkt", "Zakelijk", "Contact". On the right a dark green outlined pill with a
+phone icon reading "06 83 41 56 76", next to a solid WhatsApp-green pill
+reading "WhatsApp" with very dark text.
+
+Hero section, split in two, and it must be the first thing on the page.
+On the left, stacked in this order: a small light green pill badge with a clock
+icon reading "Voor 22:00 besteld = volgende ochtend geleverd"; then a very
+large serif headline reading exactly "Verse groenten en fruit, morgenochtend in
+uw keuken", wrapping over two or three lines and about three times as tall as
+the paragraph beneath it — it must be the biggest thing on the whole page;
+then one short supporting paragraph at normal reading size; then two buttons,
+a solid dark green "Bekijk prijslijst" and an outlined "Bestel via WhatsApp".
+On the right: a bright photograph of fresh vegetables and fruit in a wooden
+crate on a white background, bleeding off the right edge of the screen, its
+left edge cut by a curved green swoosh. Use a real produce photograph, never a
+coloured gradient or an abstract shape.
+
+Directly below the hero, a full-width dark green band with a clock icon, white
+centered text reading "Nog 3u 12m om voor morgenochtend te bestellen", a
+smaller line "Rond uw bestelling voor 22:00 af", and a light green button
+"Bestel nu" with very dark green text.
+
+Next, a row of three small trust cards with line icons: a shield with
+"Betrouwbaar", a delivery truck with "Snel", and a house with "Gratis bezorgd
+tot in uw keuken".
+
+Next, a section with two large side-by-side choice cards, the most prominent
+element on the page after the hero. Left card, dark green background, white
+text, titled "Voor horeca en bedrijven" with four bullet points: "Prijzen
+exclusief BTW", "Bulkverpakkingen", "Vaste bezorgdag", "Factuur op rekening",
+and a white button "Bekijk zakelijke prijzen". Right card, white background
+with a green border, titled "Voor particulieren" with three bullets: "Prijzen
+inclusief BTW", "Geen minimum bestelling", "Bestel eenvoudig via WhatsApp",
+and a green button "Bekijk particuliere prijzen".
+
+Next, a "Hoe het werkt" section: three numbered steps in a row, each with a
+large outlined line icon above it. Step 1 "Stel je lijst samen of app je
+bestelling". Step 2 "Wij halen het 's ochtends vers op de veiling". Step 3
+"Voor 22:00 besteld, volgende ochtend geleverd".
+
+Next, "Ons assortiment": exactly six category cards in a three-by-two grid,
+appearing once on the page and nowhere else. Each is a white rounded card with
+a bright photograph of that produce on top and the category name on a solid
+white caption bar underneath. The six names, in this order: Groenten, Fruit,
+Aardappelen & uien, Kruiden & cressen, Champignons, Gesneden groenten. Every
+one of the six must have a real produce photograph — no gradients, no grey
+icons, no empty blocks.
+
+Next, "Nieuw in de regio": on the left a white card with the line "Wij zijn net
+begonnen. Dat merkt u aan de aandacht.", two short paragraphs, and two buttons
+"Bekijk prijslijst" and "Stel een vraag". On the right three small stacked
+white cards each showing a large green figure with a grey label: "100+
+producten in de prijslijst", "6 dagen per week bezorgd", "22:00 uiterste
+besteltijd". No customer reviews and no testimonials — the company is new and
+has no customers, and invented reviews are illegal in the EU.
+
+Footer: dark green, separated from the page by a curved swoosh. On the left the
+S&A Freshlevering logo drawn in white — the serif "S&A" letters with a small
+leaf, "FRESHLEVERING" underneath and the small line "BEZORGEN VAN GROENTEN EN
+FRUIT" — large enough to read, never an empty white box. Then a Contact column
+with "TODO: adres", "TODO: bezorggebied", "info@freshlevering.nl" and
+"06 83 41 56 76"; a Bezorgtijden column; and a Volg ons column. Underneath the
+logo, a handwritten script signature reading "Betrouwbaar en snel" in light
+green. Bottom line: "© 2026 S&A Freshlevering. Alle rechten voorbehouden."
+
+Every section heading on the page must be clearly larger and bolder than the
+paragraph text underneath it. Any text placed on a light green or WhatsApp
+green fill must be very dark green, never white or pale.
+
+
+────────────────────────────────────────────────────────────────────
+PROMPT C — PRICE LIST PAGE (desktop) — the core screen
+────────────────────────────────────────────────────────────────────
+
+Design a desktop price list page for S&A Freshlevering, a Dutch fresh produce
+supplier. All copy in Dutch. This page shows about 100 products and must feel
+fast and scannable, like a well-organised catalogue — not a webshop.
+
+Dark green page header with a large serif title "Prijslijst" and a white
+subtitle "Verse groenten en fruit. Voor 22:00 besteld, volgende ochtend
+geleverd."
+
+Below it a sticky control bar on an off-white background with a bottom border,
+containing in one row: a wide rounded search field with a magnifier icon and
+the placeholder "Zoek product, bijv. tomaat…", and on the right a segmented
+two-option toggle with rounded corners, options "Zakelijk" and "Particulier",
+where "Zakelijk" is the selected option shown in solid dark green with white
+text and "Particulier" is unselected in grey on white.
+Underneath in the same bar, a horizontal row of rounded pill filter chips:
+"Alles", "Aardappelen", "Uien", "Groenten", "Tomaten", "Vruchtgroenten",
+"Sla", "Kruiden", "Champignons", "Citrus", "Hardfruit", "Zachtfruit",
+"Exoten", "Knoflook", "Gesneden". The chip "Alles" is active in fresh
+lime green. Below the chips a small grey line reading "104 producten ·
+prijzen bijgewerkt op 15 augustus 2026".
+
+The product list is grouped by category. Each group starts with a serif
+category heading in dark green with a thin lime green underline beneath it.
+
+Under each heading, product rows as separate white rounded cards with a thin
+border and a small gap between them. Each row has, left to right: the product
+name in bold with the unit underneath it in smaller grey text (for example
+"Agria aardappelen" with "Kilo"), then the price on the right in bold tabular
+figures with a tiny grey caption underneath reading "ex. BTW", and finally a
+round outlined green button with a plus sign.
+
+Show these variations among the rows so all states are visible:
+- a normal row: "Trostomaten", "Kilo", "€ 1,95", "ex. BTW"
+- a row with a small light green pill labelled "Seizoen" next to the product
+  name: "Asperges groen", "Bos", "€ 3,95"
+- a row where the price is replaced by a light green pill reading "Dagprijs":
+  "Cantharellen", "Kilo"
+- a row where the price is replaced by a muted red pill reading "Uitverkocht",
+  with no plus button, greyed out: "Boerenkool struik", "Kilo"
+- a row that has been added to the list, where the plus button is replaced by
+  a small stepper: a minus button, the number 2, and a plus button
+
+Below the product list, a light green rounded information panel with the
+heading "Zakelijke levering" and small grey text: "Alle prijzen zijn
+exclusief BTW. Wij bezorgen gratis tot in uw keuken. Voor 22:00 besteld =
+volgende ochtend geleverd, nalevering mogelijk tot 15:00. Dit is ons
+basisassortiment — in overleg stellen wij een persoonlijke assortimentslijst
+samen." Underneath it a small text link "Download prijslijst (PDF)".
+
+Fixed at the bottom of the screen, a dark green bar spanning the full width
+containing white text "7 artikelen in je lijst", an outlined white button
+"Wissen", and on the right a bright WhatsApp-green button with a WhatsApp
+icon reading "Stuur via WhatsApp".
+
+
+────────────────────────────────────────────────────────────────────
+PROMPT D — PRICE LIST (mobile)
+────────────────────────────────────────────────────────────────────
+
+Design a true mobile price list page for S&A Freshlevering. All copy in Dutch.
+Do not simply scale the desktop layout down — stack the content, simplify the
+navigation, make the controls full width and the touch targets large, and keep
+the order bar fixed. It should still read as the same design system.
+
+Compact dark green header with just the logo and a round WhatsApp icon button.
+
+Sticky control area: a full-width rounded search field with the placeholder
+"Zoek product…", underneath it the two-option segmented toggle "Zakelijk |
+Particulier" at full width with "Zakelijk" selected in dark green, and under
+that a horizontally scrollable row of rounded category chips that runs off the
+right edge of the screen to show it scrolls. A small grey line underneath
+reads "104 producten · bijgewerkt op 15 augustus 2026".
+
+Product rows stacked vertically as white rounded cards. Each card has the
+product name in bold on the first line, the unit in small grey text on the
+second, the price bold on the right with "ex. BTW" underneath in tiny grey
+text, and a round green plus button on the far right. All tap targets are
+comfortably large. Include one row showing a "Dagprijs" pill and one row
+showing a quantity stepper instead of the plus button.
+
+Fixed at the bottom of the screen, a dark green bar with white text "7
+artikelen in je lijst" on the left and a bright WhatsApp-green button reading
+"Stuur via WhatsApp" on the right.
+
+
+────────────────────────────────────────────────────────────────────
+STITCH REFINEMENTS — send one at a time after a screen is generated
+────────────────────────────────────────────────────────────────────
+
+- "Make the header background deep forest green #1B4D2E with white text."
+- "Increase the spacing between product rows and make the cards less tall."
+- "Make the price column right-aligned with tabular figures."
+- "Make the 'Zakelijk | Particulier' toggle more prominent — it is the most
+   important control on this page."
+- "Replace the product photos on the category tiles with brighter, whiter
+   food photography on a white background."
+- "Add more white space above and below the category headings."
+- "Make the plus buttons larger and circular with a green outline."
+- "The curved green swoosh divider is too heavy — make it thinner and softer."
+- "Show the mobile version of this screen."
+
+
+╔══════════════════════════════════════════════════════════════════╗
+║  TRACK 2 — CLAUDE                                                ║
+╚══════════════════════════════════════════════════════════════════╝
+
+One prompt, the whole build. Self-contained — paste PROMPT E on its own.
+If you ran Track 1 first, attach the Stitch screenshots or the exported Figma
+alongside it and add one line: "Match the attached designs."
+
+
+────────────────────────────────────────────────────────────────────
+PROMPT E — FULL BUILD
+────────────────────────────────────────────────────────────────────
+
+Build a two-page website for "S&A Freshlevering", a Dutch fresh fruit and
+vegetable delivery company. It serves restaurants and caterers first and
+consumers second. All UI copy in Dutch. Mobile-first and responsive.
+
+Stack: static HTML + CSS + vanilla JavaScript, no build step and no runtime
+dependencies. If I ask for React instead, use React + Tailwind and keep the
+same behaviour.
+
+Deliver: index.html, prijslijst.html, prijslijst-template.csv, SETUP.md, and
+one runnable self-test.
+
+If design screenshots or a Figma export are attached, they are the visual
+source of truth — match typography, spacing, proportions, colour and component
+geometry closely. Deviate only where accessibility, usability or responsive
+behaviour requires it, and say so when you do.
+
+── BRAND ──
+Deep forest green #1B4D2E (headers, footers, primary buttons), fresh leaf
+green #4CAF2F (accents and active states), off-white #F7F9F5 page background,
+white #FFFFFF cards, charcoal #1F2421 body text, WhatsApp green #25D366 only
+on WhatsApp buttons. Serif headings (Lora), sans body (Inter), line-height 1.6.
+Rounded corners 14px, soft shadows, generous white space. A soft organic curved
+green "swoosh" divider appears at most twice per page — below the hero and
+above the footer. Produce photography is bright, high-key, white-background,
+natural daylight. Never dark or moody.
+Logo: serif "S&A" monogram with a small leaf sprout above the ampersand,
+"FRESHLEVERING" in condensed uppercase underneath, tagline "BEZORGEN VAN
+GROENTEN EN FRUIT" in small wide-tracked caps.
+
+── PAGE 1: index.html ──
+1. Sticky white header: logo left; nav "Prijslijst / Hoe het werkt / Zakelijk /
+   Contact"; right a dark green phone pill "06 83 41 56 76" and a round
+   WhatsApp button. On mobile: logo + one WhatsApp CTA.
+2. Split hero. Left: H1 "Verse groenten en fruit, morgenochtend in uw keuken",
+   a sub-line, and an outlined clock badge "Voor 22:00 besteld = volgende
+   ochtend geleverd". Buttons: solid "Bekijk prijslijst", outlined "Bestel via
+   WhatsApp". Right: produce photo bleeding off the right edge, its left edge
+   cut by the swoosh. Below: trust row — Betrouwbaar (shield), Snel (truck),
+   Gratis bezorgd tot in uw keuken (house).
+3. Two large audience cards side by side — the main fork of the page.
+   "Voor horeca en bedrijven" (dark green, white text): Prijzen exclusief BTW /
+   Bulkverpakkingen / Vaste bezorgdag / Factuur op rekening → links to
+   prijslijst.html?mode=b2b.
+   "Voor particulieren" (white, green border): Prijzen inclusief BTW / Geen
+   minimum bestelling / Bestel via WhatsApp → prijslijst.html?mode=b2c.
+4. "Hoe het werkt": three numbered steps with line icons — "Stel je lijst
+   samen of app je bestelling" / "Wij halen het 's ochtends vers op de veiling"
+   / "Voor 22:00 besteld, volgende ochtend geleverd".
+5. "Ons assortiment": six category tiles (Groenten, Fruit, Aardappelen & uien,
+   Kruiden & cressen, Champignons, Gesneden groenten) linking into the filtered
+   price list.
+6. Full-width dark green band with a live countdown to today's 22:00 cutoff:
+   "Nog 3u 12m om voor morgenochtend te bestellen" and a white CTA. Compute
+   the remaining time from the visitor's current local time and tick it down —
+   never hard-code the figure. After 22:00 it switches to static copy naming
+   the next delivery cycle instead of counting to a deadline that has passed.
+7. Three testimonials plus a three-stat row. Mark this copy TODO — do not
+   invent customers or numbers.
+8. Bezorggebied: a plain list of served towns, marked TODO.
+9. Dark green footer above a swoosh: logo, phone, WhatsApp, www.freshlevering.nl,
+   info@freshlevering.nl, bezorgtijden, KvK and BTW placeholders, and a
+   handwritten script "Betrouwbaar en snel".
+10. Mobile-only fixed bottom bar: [Bel] | [WhatsApp].
+
+── PAGE 2: prijslijst.html — the core of the site ──
+About 100 products in 14 categories. It must feel like a fast catalogue, not
+a webshop. No cart, no checkout, no payments, no accounts.
+
+Layout: dark green page header ("Prijslijst" + subtitle), then a sticky control
+bar containing a search field ("Zoek product, bijv. tomaat…"), a segmented
+toggle "Zakelijk | Particulier", a horizontally scrollable row of category
+chips with "Alles" first, and a meta line "104 producten · prijzen bijgewerkt
+op <datum>".
+Below that, products grouped under serif category headings with a lime
+underline. Each product is a white rounded card row: name in bold with the unit
+in smaller grey text underneath, the price right-aligned in bold tabular
+figures with a tiny "ex. BTW" / "incl. BTW" caption under it, and a round green
+plus button.
+Below the list, a light green terms panel whose text switches with the mode,
+and a small "Download prijslijst (PDF)" link.
+
+Price states, each visually distinct and each labelled in text, never by colour
+alone:
+- normal price
+- "Dagprijs" pill when prijs_ex is blank or status is dagprijs (market-priced
+  items like asperges or cantharellen). Never render an empty cell.
+- "Seizoen" pill next to the name for seasonal items
+- "Uitverkocht" pill in muted red, row greyed, plus button removed, and the
+  item blocked from being added at all — not merely missing its button
+
+── DATA: GOOGLE SHEETS ──
+The client edits a Google Sheet and the site follows. No CMS, no deploy, no
+developer needed for a price change.
+
+  Columns: categorie | product | eenheid | prijs_ex | btw | status | b2c
+  prijs_ex  price EXCLUDING BTW, dot decimal (1.95). Blank = dagprijs.
+  btw       optional. Blank means 9, the Dutch rate for all fresh produce.
+            S&A sells produce only, so in practice this column stays empty.
+  status    normaal | dagprijs | seizoen | uitverkocht
+  b2c       TRUE if the pack size suits a consumer, FALSE = wholesale only
+  Row order in the sheet IS the display order. Do not add a sort column.
+
+Read a published-to-web CSV URL from a single SHEET_CSV_URL constant at the top
+of the script, fetch it at runtime with a ~10 minute cache, and keep a baked-in
+copy of the last known list as a fallback so a Sheets outage never blanks the
+page. Do not fetch at build time — produce prices move daily and a stale price
+generates complaints. Write a quote-aware CSV parser; product names contain
+commas and quotes. Skip rows whose first cell starts with "#". On fetch failure
+show "Prijslijst tijdelijk niet beschikbaar. Bel of app 06 83 41 56 76" — never
+a blank table.
+
+── BTW: ONE PRICE, TWO VIEWS ──
+The sheet stores ex-BTW only. The Particulier view computes incl-BTW at render
+time as prijs_ex × (1 + btw/100) rounded to cents. Never store two price
+columns. Every price on screen carries an explicit "ex. BTW" or "incl. BTW"
+caption — an unlabelled ex-BTW price shown to a consumer is a legal problem in
+the Netherlands, not a styling nitpick. The Particulier view also hides every
+row where b2c is FALSE (25kg baal, 12.5kg doos, 5kg boter): hidden, not deleted.
+
+── BEHAVIOUR ──
+- Search and category filtering are client-side, instant and case-insensitive.
+  No network request per keystroke. Filtering preserves sheet row order.
+- Mode resolves in this precedence: an explicit ?mode=b2b / ?mode=b2c in the
+  URL wins, then the value saved in localStorage, then the default Zakelijk.
+  Switching mode updates prices, BTW captions, visible rows and the terms panel
+  without a page reload, and a returning restaurant never re-picks Zakelijk.
+- The plus button turns that row into a −/quantity/+ stepper. Quantities persist
+  in localStorage.
+- Once anything is selected, a fixed dark green bottom bar appears: "7 artikelen
+  in je lijst", a "Wissen" button, and a WhatsApp CTA opening a wa.me link to
+  31683415676 with a prefilled Dutch message listing quantity, product and unit,
+  followed by empty "Bezorgadres:" and "Gewenste bezorgdag:" lines.
+- Accessibility: WCAG AA contrast, semantic HTML, correct heading order, full
+  keyboard navigation, visible focus rings, 44px minimum tap targets,
+  aria-pressed on the toggle and chips, aria-live on the result list, alt text
+  on every produce photo, respects prefers-reduced-motion. No state is ever
+  communicated by colour alone.
+- Performance: no carousel, no heavy libraries, lazy-load images below the fold,
+  target LCP under 2.5s on 4G.
+- Motion: fade-and-rise on scroll into view (200ms) and a hover lift on cards.
+  Nothing parallax, nothing auto-playing.
+
+── ALSO DELIVER ──
+- prijslijst-template.csv: the seed sheet with the exact columns above, ~100
+  sample rows covering every category and every status value, and both b2c
+  TRUE and FALSE pack sizes.
+- SETUP.md, in Dutch, for a non-technical client: import the CSV into a Sheet,
+  replace the sample rows with real products, Bestand > Delen > Publiceren op
+  internet > tab > CSV, copy the URL, paste it into SHEET_CSV_URL, open
+  index.html. Note that prices go in ex BTW and that a blank price means
+  dagprijs.
+- One runnable self-test — plain asserts, no test framework — covering:
+  CSV quoted commas, CSV escaped quotes, comment rows skipped, BTW rounding at
+  9% and at an explicit 21%, blank btw defaulting to 9, blank prijs_ex yielding
+  dagprijs, b2c filtering hiding wholesale
+  rows in Particulier mode, an uitverkocht item refusing to be added, quantity
+  round-tripping through localStorage, and the generated WhatsApp message body.
+  It must fail loudly and name what broke.
+
+── HOUSEKEEPING ──
+Keep the BTW calculation in one function, the mode logic in one place and the
+order state in one place — that is what stops this drifting, not file count.
+No dead code, no lorem ipsum, no dependency added for something a few lines do.
+
+Real Dutch copy throughout. Placeholder produce images with descriptive alt
+text. Never invent customer names, review quotes, statistics, delivery towns,
+postcodes, KvK or BTW numbers — mark every one of those TODO.
+
+── DONE MEANS ──
+Both pages render on desktop and mobile, the CSV loads at runtime with the
+fallback working when it does not, the self-test passes, and every visible
+price carries a BTW label. Report honestly what you verified by running it and
+what you only eyeballed — do not claim a check you did not execute.
+
+
+╔══════════════════════════════════════════════════════════════════╗
+║  SHARED REFERENCE — for you, not for either tool                 ║
+╚══════════════════════════════════════════════════════════════════╝
+
+WHAT IS ALREADY IN THIS PROJECT
+  build/prijslijst.html          working reference build of page 2,
+                                 Sheets-backed, selftest passes (#selftest)
+  build/prijslijst-template.csv  ~100-row seed sheet, all categories/statuses
+                                 (must stay beside prijslijst.html — it is the
+                                 offline fallback source)
+  brand/card.jpg                 the business card — style reference for Stitch
+  brand/logo.png                 the logo lockup
+  brand/DESIGN.md                generated design tokens — see review notes
+  reference/competitor-list.pdf  competitor catalogue — structure sample only
+  reference/stitch-homepage-v1.png  first Stitch homepage output
+
+ABOUT list.pdf
+A competitor's catalogue, with a different phone number and email. Take the
+structure only: category taxonomy, the Product/Eenheid/Prijs row shape,
+"Eenheid" as a first-class column, dagprijs as a real state, the footer terms
+block. Do not publish their prices or SKU list — S&A would be committing to a
+wholesaler's margins on ~400 items it may not stock, and a copied compilation
+runs into the NL Databankenwet. The sample rows in prijslijst-template.csv are
+for building and testing. Replace every row before launch.
+
+FIX WHEN CARRYING OVER FROM THE CARD
+- The WhatsApp badge on the banner overlaps the produce photo and loses
+  contrast. Give it a solid backing or move it off the busy area.
+- "S&A" serif against "FRESHLEVERING" sans is a weak pairing at small sizes.
+  Set a minimum logo width of 160px.
+
+BRAND FACTS (verbatim from card)
+  Name     S&A Freshlevering
+  Tagline  Bezorgen van groenten en fruit
+  Claims   Betrouwbaar · Snel · Betrouwbaar en snel
+  Cutoff   Voor 22:00 avond bestellen = volgende ochtend geleverd
+  Phone    06 83 41 56 76 (also WhatsApp) -> wa.me/31683415676
+  Website  www.freshlevering.nl
+  Email    info@freshlevering.nl
+
+STILL OPEN — ask the client
+- Delivery area: which towns / postcodes?
+- KvK and BTW number for the footer.
+- Real testimonials and statistics. The prompts leave these as TODO on purpose.

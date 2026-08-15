@@ -1,0 +1,20 @@
+<!-- S&A Freshlevering beeldmerk. Transparant, currentColor, schaalt overal.
+     Getekend naar icons/logo.png. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none"
+     stroke="#1b4d2e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+  <!-- schild: rechte flanken, ronde schouders, punt links van het midden,
+       rechtsonder een open sweep zoals in het origineel -->
+  <path d="M24 34a10 10 0 0 1 10-10h32a10 10 0 0 1 10 10v20c0 12-6 21-15 27"/>
+  <path d="M24 34v20c0 12 7 21 16 27 4 2.4 8-.4 8-5"/>
+  <!-- stengel -->
+  <path d="M48 76V50"/>
+  <!-- blad boven -->
+  <path d="M48 30c8 6 9 16 3 22-7-5-8-15-3-22z"/>
+  <path d="M50 38c0 4-.6 7-1.6 9.5"/>
+  <!-- blad links -->
+  <path d="M47 53c-3-6-9-9-17-8 0 9 7 15 16 14"/>
+  <path d="M32 48c5 1.6 9 4.4 12 8"/>
+  <!-- blad rechts -->
+  <path d="M50 57c3-6 9-9 17-8 0 9-7 15-16 14"/>
+  <path d="M65 52c-5 1.6-9 4.4-12 8"/>
+</svg>

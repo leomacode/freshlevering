@@ -1,0 +1,113 @@
+categorie,product,eenheid,prijs_ex,btw,status,b2c
+# SAMPLE DATA for build/testing only. Replace every row with S&A's own,,,,,,
+# products and prices before launch.,,,,,,
+# Fresh produce only — S&A does not sell zuivel/kaas or non-food.,,,,,,
+# prijs_ex = price EXCLUDING BTW. Leave blank for a day price.,,,,,,
+# btw = OPTIONAL. Blank means 9 (all fresh produce in NL). Only fill it in,,,,,,
+#   if a product is ever 21% — nothing in the current range is.,,,,,,
+# status = normaal | dagprijs | seizoen | uitverkocht,,,,,,
+# b2c = TRUE if the pack size makes sense for a consumer. FALSE = wholesale only.,,,,,,
+Aardappelen,Agria aardappelen,Kilo,0.95,9,normaal,TRUE
+Aardappelen,Krieltjes gewassen,Kilo,1.95,9,normaal,TRUE
+Aardappelen,Dore aardappelen,2.5 kg,2.99,9,normaal,TRUE
+Aardappelen,Nicola aardappelen,5 kg,3.50,9,normaal,TRUE
+Aardappelen,Zoete aardappelen,Kilo,1.50,9,normaal,TRUE
+Aardappelen,Tafelaardappel schoon geschild,Zak 5 kg,6.95,9,normaal,FALSE
+Aardappelen,Verse friet met schil,Zak 5 kg,7.95,9,normaal,FALSE
+Aardappelen,Verse friet,Kilo,2.95,9,normaal,TRUE
+Uien,Ui geel,Kilo,1.50,9,normaal,TRUE
+Uien,Ui rood,Kilo,0.99,9,normaal,TRUE
+Uien,Uien baal,Baal 5 kg,3.95,9,normaal,TRUE
+Uien,Spaanse ui,Baal 25 kg,13.95,9,normaal,FALSE
+Uien,Banaansjalotten,Kilo,1.50,9,normaal,TRUE
+Uien,Ui schoon geschild,Kilo,1.40,9,normaal,TRUE
+Knoflook,Knoflook vers,Stuk,0.49,9,normaal,TRUE
+Knoflook,Knoflook streng 500 gram,Streng,2.49,9,normaal,TRUE
+Knoflook,Knoflook gepeld,Vacuum 1 kg,4.95,9,normaal,FALSE
+Groenten,Broccoli 500 gram,Stuk,0.99,9,normaal,TRUE
+Groenten,Bloemkool,Stuk,1.95,9,normaal,TRUE
+Groenten,Spitskool,Stuk,0.99,9,normaal,TRUE
+Groenten,Witte kool,Stuk,0.99,9,normaal,TRUE
+Groenten,Rode kool,Stuk,0.99,9,normaal,TRUE
+Groenten,Knolselderij,Stuk,0.99,9,normaal,TRUE
+Groenten,Prei,Kilo,0.99,9,normaal,TRUE
+Groenten,Winterpeen,Kilo,1.25,9,normaal,TRUE
+Groenten,Bospeen,Bos,0.99,9,normaal,TRUE
+Groenten,Venkel,Kilo,1.65,9,normaal,TRUE
+Groenten,Sperziebonen,Kilo,2.95,9,normaal,TRUE
+Groenten,Haricots verts 250 gram,Pak,1.95,9,normaal,TRUE
+Groenten,Spruiten schoon,Kilo,3.99,9,normaal,TRUE
+Groenten,Pastinaak,Kilo,1.75,9,normaal,TRUE
+Groenten,Rabarber,Kilo,2.95,9,seizoen,TRUE
+Groenten,Asperges groen,Bos,3.95,9,seizoen,TRUE
+Groenten,Asperges wit AA,Kilo,,9,dagprijs,TRUE
+Groenten,Boerenkool struik,Kilo,,9,seizoen,TRUE
+Groenten,Zuurkool 500 gram,Pak,0.99,9,normaal,TRUE
+Groenten,Zuurkool,Emmer 10 ltr,12.95,9,normaal,FALSE
+Tomaten,Trostomaten,Kilo,1.95,9,normaal,TRUE
+Tomaten,Trostomaten,Doos 5 kg,8.99,9,normaal,FALSE
+Tomaten,Pomodori tros,Kilo,1.75,9,normaal,TRUE
+Tomaten,Vleestomaat,Kilo,2.25,9,normaal,TRUE
+Tomaten,Cherrytomaten rood,Bak,0.75,9,normaal,TRUE
+Tomaten,Cherrytomaten geel,Bak,0.99,9,normaal,TRUE
+Tomaten,Cherry mix kleur,Doos 1 kg,8.95,9,normaal,FALSE
+Vruchtgroenten,Komkommer,Stuk,0.60,9,normaal,TRUE
+Vruchtgroenten,Courgette groen,Stuk,0.69,9,normaal,TRUE
+Vruchtgroenten,Aubergine,Kilo,1.95,9,normaal,TRUE
+Vruchtgroenten,Paprika rood,Kilo,2.50,9,normaal,TRUE
+Vruchtgroenten,Paprika geel,Kilo,2.50,9,normaal,TRUE
+Vruchtgroenten,Paprika groen,Kilo,2.50,9,normaal,TRUE
+Vruchtgroenten,Spaanse peper,Kilo,5.95,9,normaal,TRUE
+Vruchtgroenten,Jalapeno pepers,Kilo,6.99,9,normaal,FALSE
+Sla,Kropsla,Stuk,0.99,9,normaal,TRUE
+Sla,IJsbergsla,Krop,0.89,9,normaal,TRUE
+Sla,Little gem 6 stuks,Pak,1.95,9,normaal,TRUE
+Sla,Lollo rosso,Stuk,0.99,9,normaal,TRUE
+Sla,Rucola gewassen 125 gram,Bak,0.99,9,normaal,TRUE
+Sla,Veldsla 125 gram,Bak,0.99,9,normaal,TRUE
+Sla,Baby spinazie 125 gram,Bak,0.95,9,normaal,TRUE
+Sla,Slamix geplukt 500 gram,Zak,4.95,9,normaal,TRUE
+Kruiden,Peterselie krul,Bos,0.99,9,normaal,TRUE
+Kruiden,Koriander,Bos,0.65,9,normaal,TRUE
+Kruiden,Munt,Bos,0.69,9,normaal,TRUE
+Kruiden,Basilicum,Zak,1.39,9,normaal,TRUE
+Kruiden,Basilicum plant,Pot,1.75,9,normaal,TRUE
+Kruiden,Bieslook,Zak,1.39,9,normaal,TRUE
+Kruiden,Rozemarijn,Zak,1.39,9,normaal,TRUE
+Kruiden,Tijm,Zak,1.39,9,normaal,TRUE
+Champignons,Champignons wit 250 gram,Pak,0.79,9,normaal,TRUE
+Champignons,Champignons kastanje 250 gram,Pak,1.50,9,normaal,TRUE
+Champignons,Champignons hotel,Kist 3 kg,7.50,9,normaal,FALSE
+Champignons,Oesterzwam,Doos 1.5 kg,10.99,9,normaal,FALSE
+Champignons,Shiitake,Doos 1.5 kg,14.99,9,normaal,FALSE
+Champignons,Cantharellen,Kilo,,9,dagprijs,FALSE
+Citrus,Citroen,Stuk,0.20,9,normaal,TRUE
+Citrus,Limoen,Stuk,0.20,9,normaal,TRUE
+Citrus,Sinaasappel handnavel,Kilo,1.75,9,normaal,TRUE
+Citrus,Perssinaasappels,Doos 15 kg,12.95,9,normaal,FALSE
+Citrus,Mandarijn,Kilo,1.75,9,seizoen,TRUE
+Citrus,Gember,Kilo,3.95,9,normaal,TRUE
+Hardfruit,Appel Elstar,Kilo,1.29,9,normaal,TRUE
+Hardfruit,Appel Jonagold,Kilo,0.99,9,normaal,TRUE
+Hardfruit,Appel Granny Smith,Kilo,1.50,9,normaal,TRUE
+Hardfruit,Appel Pink Lady,Kilo,2.49,9,normaal,TRUE
+Hardfruit,Peer Conference,Kilo,1.49,9,normaal,TRUE
+Hardfruit,Stoofpeer Gieser Wildeman,Kilo,1.49,9,seizoen,TRUE
+Zachtfruit,Aardbeien 500 gram,Bak,3.99,9,seizoen,TRUE
+Zachtfruit,Blauwe bessen 125 gram,Bak,1.95,9,normaal,TRUE
+Zachtfruit,Frambozen 125 gram,Bak,1.95,9,normaal,TRUE
+Zachtfruit,Druiven wit pitloos,Kilo,1.95,9,normaal,TRUE
+Zachtfruit,Druiven rood pitloos,Kilo,1.95,9,normaal,TRUE
+Zachtfruit,Galiameloen,Stuk,1.49,9,normaal,TRUE
+Zachtfruit,Watermeloen,Stuk,3.49,9,seizoen,TRUE
+Exoten,Ananas,Stuk,1.75,9,normaal,TRUE
+Exoten,Avocado ready to eat,Stuk,1.29,9,normaal,TRUE
+Exoten,Banaan,Kilo,1.19,9,normaal,TRUE
+Exoten,Mango ready to eat,Stuk,1.49,9,normaal,TRUE
+Exoten,Kiwi gold,Stuk,0.35,9,normaal,TRUE
+Exoten,Passievrucht,Stuk,0.35,9,normaal,TRUE
+Exoten,Pompoen,Kilo,1.50,9,seizoen,TRUE
+Gesneden,Winterpeen rasp 1 kg,Zak,2.95,9,normaal,TRUE
+Gesneden,Witte kool rasp 1 kg,Zak,2.95,9,normaal,TRUE
+Gesneden,Rode kool rasp 1 kg,Zak,2.95,9,normaal,TRUE
+Gesneden,Fruitsalade vers 1 kg,Bak,8.95,9,normaal,TRUE

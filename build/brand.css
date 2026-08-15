@@ -1,0 +1,208 @@
+/* S&A Freshlevering — shared brand layer. Tokens mirror brand/DESIGN.md. */
+
+:root{
+  /* brand */
+  --primary:#1b4d2e; --on-primary:#fff;
+  --accent:#4caf2f;  --on-accent:#0d2a17;   /* dark text on accent: white fails */
+  --wa:#25d366;      --on-wa:#08331b;       /* white on WhatsApp green fails too */
+  --accent-on-dark:#93e27a;
+
+  /* surfaces */
+  --surface:#f7f9f5; --card:#fff; --surface-low:#f0f5f0;
+
+  /* text */
+  --ink:#1f2421; --muted:#4a5750; --disabled:#6b7670;
+
+  /* lines */
+  --line:#c1c9bf; --line-strong:#8e998c;
+
+  /* status */
+  --day-bg:#e4f5df;    --day-ink:#1b4d2e;
+  --season-bg:#fff3d6; --season-ink:#6b4a00;
+  --out-bg:#ffdad6;    --out-ink:#93000a;
+
+  --focus:#2e7d46;
+  --bar-h:58px;              /* height of the mobile contact bar */
+  --r:14px; --r-sm:8px; --r-lg:20px;
+  --shadow:0 4px 20px rgba(27,77,46,.08);
+  --shadow-hover:0 8px 28px rgba(27,77,46,.14);
+  --shadow-bar:0 -4px 20px rgba(0,0,0,.18);
+  --wrap:1200px;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--surface);color:var(--ink);
+  font:400 16px/1.6 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+img{max-width:100%;display:block}
+a{color:var(--primary)}
+
+/* Missing photos degrade to a labelled block, never a broken-image icon. */
+img.photo{background:var(--day-bg);color:var(--day-ink);font-size:13px;object-fit:cover}
+
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 16px}
+@media(min-width:900px){.wrap{padding:0 40px}}
+
+/* ---------- type scale. The hero must dominate; v1-v5 kept collapsing it. */
+h1,h2,h3{font-family:Lora,Georgia,serif;margin:0}
+h1{font-size:32px;line-height:40px;font-weight:600;letter-spacing:-.02em}
+h2{font-size:24px;line-height:32px;font-weight:500}
+h3{font-size:18px;line-height:26px;font-weight:600;font-family:Inter,sans-serif}
+.lead{font-size:18px;line-height:28px;color:var(--muted)}
+.small{font-size:14px;line-height:20px}
+.muted{color:var(--muted)}
+@media(min-width:900px){
+  h1{font-size:48px;line-height:56px}
+  h2{font-size:32px;line-height:40px}
+}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:48px;padding:0 22px;border-radius:var(--r);border:1px solid transparent;
+  font:600 15px/1 Inter,sans-serif;text-decoration:none;cursor:pointer;
+}
+.btn-primary{background:var(--primary);color:var(--on-primary)}
+.btn-accent{background:var(--accent);color:var(--on-accent)}
+.btn-wa{background:var(--wa);color:var(--on-wa)}
+.btn-ghost{background:transparent;color:var(--primary);border-color:var(--primary)}
+/* The floating call button sits over the swoosh and the footer, both of which
+   are --primary. A green-on-green button disappears there, so it is white. */
+.btn-call{background:#fff;color:var(--primary);border-color:var(--line-strong)}
+.btn:hover{filter:brightness(.95)}
+
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* ---------- pieces ---------- */
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--day-bg);color:var(--day-ink);
+  border-radius:999px;padding:8px 16px;font:600 14px/1 Inter,sans-serif;
+}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+
+.site-header{
+  position:sticky;top:0;z-index:40;background:#eaf0e8;
+  border-bottom:1px solid #cdd8ca;
+}
+.site-header .wrap{display:flex;align-items:center;gap:12px;min-height:72px;position:relative}
+.logo{font-family:Lora,serif;font-weight:600;color:var(--primary);
+  text-decoration:none;line-height:1.05;margin-right:auto;
+  display:flex;align-items:center;gap:10px;
+  /* vertical padding only — grows the hit area to 44px without widening the
+     lockup, so it cannot encroach on the menu button beside it */
+  min-height:44px;padding-block:4px}
+.logo img{width:36px;height:36px;flex:none}
+.logo-txt{display:block}
+@media(min-width:900px){.logo img{width:42px;height:42px}}
+.logo b{display:block;font-size:20px;letter-spacing:.02em}
+.logo span{display:block;font:600 10px/1.3 Inter,sans-serif;letter-spacing:.16em}
+@media(min-width:900px){
+  .logo{min-width:160px}
+  .logo b{font-size:22px}
+  .logo span{font-size:11px;letter-spacing:.18em}
+}
+
+/* Menu: a dropdown panel under the header on phones, inline on desktop.
+   Without this the nav links were simply unreachable below 900px. */
+.menu-btn{
+  width:44px;height:44px;border:1px solid var(--line-strong);border-radius:var(--r-sm);
+  background:var(--card);color:var(--primary);cursor:pointer;display:grid;place-items:center
+}
+.menu-btn svg{width:22px;height:22px}
+.nav{
+  display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;
+  gap:0;background:var(--card);border-bottom:1px solid var(--line);
+  box-shadow:0 8px 20px rgba(0,0,0,.10);padding:8px 0
+}
+.nav[data-open="true"]{display:flex}
+.nav a{
+  color:var(--ink);text-decoration:none;font-size:16px;
+  padding:14px 16px;min-height:44px;display:flex;align-items:center
+}
+.nav a:hover{color:var(--primary);background:var(--surface-low)}
+/* Current page: on mobile the menu is a list of rows, so fill the row and add
+   a left accent bar — bold text alone is easy to miss. */
+.nav a[aria-current]{
+  color:var(--primary);font-weight:600;
+  background:var(--day-bg);
+  box-shadow:inset 4px 0 0 var(--accent)}
+.header-cta{display:none}
+@media(min-width:900px){
+  .menu-btn{display:none}
+  .nav{display:flex;position:static;flex-direction:row;gap:24px;margin-left:auto;
+    background:none;border:0;box-shadow:none;padding:0}
+  .nav a{padding:0;min-height:0;font-size:15px}
+  .nav a:hover{background:none}
+  .nav a[aria-current]{text-decoration:underline;text-underline-offset:6px}
+  .header-cta{display:flex;gap:8px;margin-left:24px}
+}
+
+/* The transparent part of the swoosh shows whatever is behind it. Give it the
+   tone of the section it sits under, or a pale seam appears above the footer. */
+.swoosh{display:block;width:100%;height:auto;color:var(--primary);
+  background:var(--surface-low);margin-bottom:-1px}
+
+/* Line icons, matching icons/image.png. Emoji were inconsistent across
+   platforms and did not carry the brand colour. */
+.ic{width:22px;height:22px;display:block}
+.icon .ic{width:24px;height:24px}
+.ic-wrap{flex:none;color:var(--primary);display:grid;place-items:center;
+  width:24px;height:24px;margin-top:2px}
+.badge .ic{width:16px;height:16px}
+
+
+/* Reserve exactly the bar's height, plus the iPhone home-indicator inset.
+   Derived from --bar-h so it cannot drift out of sync with the bar. */
+footer.site-footer{background:var(--primary);color:var(--on-primary);
+  padding-bottom:calc(var(--bar-h) + env(safe-area-inset-bottom, 0px))}
+/* Contact details read as a list, not as prose, so no default underline —
+   underline appears on hover/focus so they still announce themselves as links. */
+footer.site-footer a{color:#cfe6d4;text-decoration:none}
+footer.site-footer a:hover,
+footer.site-footer a:focus-visible{color:#fff;text-decoration:underline}
+.script{font-family:Lora,serif;font-style:italic;color:var(--accent-on-dark);font-size:20px}
+
+/* Always-reachable contact. Full-width bar on phones, floating cluster on
+   desktop. --bar-offset lets a page lift it above its own bottom bar. */
+:root{--bar-offset:0px}
+
+.actionbar{
+  position:fixed;left:0;right:0;bottom:var(--bar-offset);z-index:45;display:flex;
+  box-shadow:var(--shadow-bar);
+}
+.actionbar{padding-bottom:env(safe-area-inset-bottom, 0px)}
+.actionbar a{flex:1;min-height:var(--bar-h);display:flex;align-items:center;justify-content:center;
+  gap:10px;text-decoration:none;font:600 16px/1 Inter,sans-serif}
+.actionbar a svg{width:22px;height:22px;flex:none}
+.actionbar .btn-call{border-top:1px solid var(--line);border-right:1px solid var(--line)}
+
+@media(min-width:900px){
+  .actionbar{
+    left:auto;right:24px;bottom:calc(24px + var(--bar-offset));
+    flex-direction:column;gap:12px;background:none;box-shadow:none;
+  }
+  .actionbar a{
+    width:60px;height:60px;min-height:60px;border-radius:50%;
+    box-shadow:0 6px 20px rgba(0,0,0,.22);font-size:0;gap:0;
+  }
+  .actionbar .btn-call{border:1px solid var(--line-strong)}
+  .actionbar a svg{width:26px;height:26px}
+  .actionbar a span{display:none}
+  .actionbar a::after{
+    content:attr(data-label);position:absolute;right:72px;white-space:nowrap;
+    background:var(--ink);color:#fff;font-size:13px;padding:6px 10px;
+    border-radius:var(--r-sm);opacity:0;pointer-events:none;transition:opacity .15s;
+  }
+  .actionbar a:hover::after,.actionbar a:focus-visible::after{opacity:1}
+  footer.site-footer{padding-bottom:0}
+}
+
+@media(prefers-reduced-motion:no-preference){
+  .reveal{opacity:0;transform:translateY(12px);transition:opacity .2s,transform .2s}
+  .reveal.in{opacity:1;transform:none}
+}

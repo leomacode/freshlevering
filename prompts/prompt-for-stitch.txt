@@ -1,0 +1,122 @@
+S&A FRESHLEVERING — STITCH (round 7)
+=====================================
+Against stitch-homepage-v5.png and stitch-homepage-v5-mobile.png.
+
+READ THIS FIRST — two things went wrong, both procedural, not design.
+
+
+════════════════════════════════════════════════════════════════════
+PROBLEM 1 — the new Prompt B was not used
+════════════════════════════════════════════════════════════════════
+
+Desktop v5 shows things the new Prompt B explicitly forbids:
+- the invented address "Dorpstraat 12, 1234 AB Amsterdam" is back
+- the email reverted to an older address
+- "© 2024" is back instead of 2026
+- the account avatar and chat icons are back in the header
+- the six category cards are missing entirely
+- "Hoe het werkt", the reviews and the bezorggebied section are all missing
+
+Those are all old answers from earlier in the Stitch conversation. A new
+*screen* inside an existing Stitch project still inherits that project's
+history, so Stitch reused its old output instead of reading the new prompt.
+
+FIX: start a brand new Stitch PROJECT, not a new screen. Paste the Prompt B
+block from website-design-prompt.txt as the first message in that empty
+project.
+
+
+════════════════════════════════════════════════════════════════════
+PROBLEM 2 — do not upload card.jpg into the homepage project
+════════════════════════════════════════════════════════════════════
+
+In v5 the hero "photograph" is the business card itself, scanned and tiled
+twice, with the logo and phone number cropped mid-word. Stitch treated the
+uploaded reference image as page content rather than as a style guide.
+
+FIX: do not attach card.jpg when generating the homepage. The colours,
+typography and logo are already described in words in Prompt A and Prompt B —
+that is enough. Only attach card.jpg if you are asking Stitch to design the
+logo lockup itself.
+
+
+════════════════════════════════════════════════════════════════════
+WHAT TO DO NOW
+════════════════════════════════════════════════════════════════════
+
+1. New Stitch project. No image attached.
+2. Paste the Prompt B block from website-design-prompt.txt (lines 78-149).
+3. Check it against the five points below before sending anything else.
+4. Then, and only then, apply follow-ups.
+
+Check the fresh desktop screen for:
+- the hero has a real produce photo — vegetables in a crate, NOT the business
+  card, NOT a gradient
+- the headline "Verse groenten en fruit, morgenochtend in uw keuken" is clearly
+  the biggest text on the page
+- six category cards, appearing once, each with a real photo
+- the footer says "TODO: adres" and "© 2026", never a street address
+- no account avatar or chat bubble in the header
+
+If any of those five fail, regenerate rather than patch.
+
+
+════════════════════════════════════════════════════════════════════
+MOBILE — unchanged from round 6, these were not applied
+════════════════════════════════════════════════════════════════════
+
+Mobile v5 is the same as v4. Send these three, one at a time.
+
+1. MISSING PHOTOS
+--------------------------------------------------------------------
+The "Champignons" and "Gesneden groenten" cards have no photo, just a plain
+dark block. Give them the same bright produce photo on a white background as
+the other four cards: fresh mushrooms for Champignons, and cut and washed
+vegetables for Gesneden groenten.
+--------------------------------------------------------------------
+
+2. FOOTER LOGO
+--------------------------------------------------------------------
+The logo in the footer is still an empty white square. Replace it with the S&A
+Freshlevering logo drawn in white: the serif "S&A" letters with a small leaf,
+the word "FRESHLEVERING" underneath, and the small line "BEZORGEN VAN GROENTEN
+EN FRUIT". Make it big enough to read.
+--------------------------------------------------------------------
+
+3. GREEN BUTTON TEXT
+--------------------------------------------------------------------
+The text on the light green "Bestel nu" button is too pale to read. Make the
+text on every light green button very dark green, almost black. Never white or
+pale text on light green.
+--------------------------------------------------------------------
+
+
+════════════════════════════════════════════════════════════════════
+ANCHOR — re-send if Stitch slides back
+════════════════════════════════════════════════════════════════════
+
+--------------------------------------------------------------------
+This company sells fresh fruit and vegetables only — never add dairy, cheese,
+eggs, juice or household products. The six categories are Groenten, Fruit,
+Aardappelen & uien, Kruiden & cressen, Champignons, Gesneden groenten. Keep
+the main headline much bigger than the body text. Keep the hero section with
+its produce photo, badge and two buttons. Never put a street address, customer
+name, review or statistic on the page — leave those as visible "TODO" text.
+The year is 2026. Light green buttons always use very dark text.
+--------------------------------------------------------------------
+
+
+════════════════════════════════════════════════════════════════════
+NOTES FOR YOU, NOT FOR STITCH
+════════════════════════════════════════════════════════════════════
+
+Mobile is the good screen. It is close to done — three fixes away. If Stitch
+keeps fighting on desktop, an honest option is to stop at a solid mobile design
+and let Claude build the desktop layout from it, using Prompt E. The Claude
+track does not need a desktop mockup; it needs the visual language, and mobile
+already carries it.
+
+Also worth knowing: v5 desktop invented new marketing copy again — "Vaste
+kwaliteit, vaste afspraken", "De kwaliteit van de groothandel, gewoon bij u
+thuis op het aanrecht". None of it was asked for and none of it is the
+client's. Watch for it on every regeneration.
