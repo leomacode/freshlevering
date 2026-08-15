@@ -176,6 +176,16 @@ footer.site-footer a:focus-visible{color:#fff;text-decoration:underline}
   box-shadow:var(--shadow-bar);
 }
 .actionbar{padding-bottom:env(safe-area-inset-bottom, 0px)}
+/* iOS Safari keeps a fixed bottom:0 element where its auto-hiding toolbar was,
+   so page content shows through underneath. Extend each half's colour below
+   the bar to cover that gap; it is off-screen when the bar sits flush. */
+@media(max-width:899px){
+  .actionbar::after{
+    content:"";position:absolute;top:100%;left:0;right:0;height:240px;
+    background:linear-gradient(to right,#fff 0 50%,var(--wa) 50% 100%);
+    pointer-events:none;
+  }
+}
 .actionbar a{flex:1;min-height:var(--bar-h);display:flex;align-items:center;justify-content:center;
   gap:10px;text-decoration:none;font:600 16px/1 Inter,sans-serif}
 .actionbar a svg{width:22px;height:22px;flex:none}

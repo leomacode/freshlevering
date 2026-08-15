@@ -2,5 +2,8 @@
 # Kept locally as a structural reference only — never published.
 reference/competitor-list.pdf
 
+# Screenshots of bugs found on real devices — working notes, not deliverables.
+issues/
+
 .DS_Store
 *.log
