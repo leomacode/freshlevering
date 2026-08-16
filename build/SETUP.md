@@ -24,7 +24,9 @@ Klaar. Vanaf nu leest de website uw Sheet.
 
 ## Dagelijks gebruik
 
-Pas het Sheet aan en sla op. De website is binnen ongeveer tien minuten bij.
+Pas het Sheet aan. Google slaat automatisch op. De website is binnen een
+minuut of vijf bij: Google levert de gepubliceerde CSV met vijf minuten
+vertraging, de website zelf ververst elke minuut.
 
 ### De kolommen
 

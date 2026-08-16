@@ -611,7 +611,9 @@
         "https://docs.google.com/spreadsheets/d/e/2PACX-1vSQECqpmyg2-DW5bi1GZ0IyoZbU-ErwCF-OmrgqSwrhdfpmrhIyfyV9DoBpnwXciIsiCoMulwlXk3wW/pub?output=csv"; // ← gepubliceerde CSV-URL van het Sheet
       const FALLBACK_CSV_URL = "prijslijst-template.csv";
       const WA_NUMBER = "31683415676";
-      const CACHE_MS = 10 * 60 * 1000;
+      // Google caches the published CSV for 5 minutes regardless, so a longer
+      // cache here only delays edits without saving a meaningful request.
+      const CACHE_MS = 60 * 1000;
 
       // ---- csv --------------------------------------------------------------
       // Quote-aware: product names contain commas and quotes.
