@@ -45,8 +45,8 @@ row, so it comes back with one edit.
 
 Every one of these shows as a visible `TODO` on the site rather than a guess:
 
-- KvK and BTW number for the footer.
-- Street address, and whether the footer should name a delivery area at all.
+- BTW number for the footer (KvK 42111545 is in).
+- Delivery area — the footer still shows a `TODO: bezorggebied` line.
 
 Not open, decided:
 - **Photos** — seven Unsplash stock photos are installed. Swap in S&A's own
