@@ -24,6 +24,8 @@
   .grid{display:grid;gap:16px}
   @media(min-width:700px){.cols-3{grid-template-columns:repeat(3,1fr)}}
   @media(min-width:700px){.cols-2{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:700px){.cols-4{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:1000px){.cols-4{grid-template-columns:repeat(4,1fr)}}
   @media(min-width:900px){.cols-6{grid-template-columns:repeat(3,1fr)}}
   @media(min-width:600px) and (max-width:899px){.cols-6{grid-template-columns:repeat(2,1fr)}}
 
@@ -120,7 +122,7 @@
 
 <!-- TRUST -->
 <section style="padding-block:32px" aria-labelledby="trust-h">
-  <div class="wrap grid cols-3">
+  <div class="wrap grid cols-4">
     <h2 id="trust-h" class="sr-only">Waarom bij ons bestellen</h2>
     <div class="card trust reveal">
       <span class="icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3l7 3v5c0 4.4-3 8.3-7 10-4-1.7-7-5.6-7-10V6l7-3z"/><path d="M12 7v10"/></svg></span>
@@ -133,6 +135,10 @@
     <div class="card trust reveal">
       <span class="icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 11l8-6 8 6"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg></span>
       <div><h3>Gratis bezorgd</h3><p class="small muted">Tot in uw keuken, binnen onze bezorgregio.</p></div>
+    </div>
+    <div class="card trust reveal">
+      <span class="icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 19c0-8 6-13 14-13 0 8-6 13-14 13z"/><path d="M5 19c3-4 6-6 10-8"/></svg></span>
+      <div><h3>Duurzaam geleverd</h3><p class="small muted">Slimme routes en zo weinig mogelijk verpakking.</p></div>
     </div>
   </div>
 </section>
