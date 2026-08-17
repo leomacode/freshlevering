@@ -169,27 +169,34 @@ footer.site-footer a:focus-visible{color:#fff;text-decoration:underline}
 
 /* Always-reachable contact. Full-width bar on phones, floating cluster on
    desktop. --bar-offset lets a page lift it above its own bottom bar. */
-:root{--bar-offset:0px}
+:root{--bar-offset:0px;
+  /* The bar's two halves as one paint, so the padding below the buttons and the
+     strip below the bar carry the same colours as the buttons themselves. */
+  --bar-split:linear-gradient(to right,#fff 0 50%,var(--wa) 50% 100%)}
 
 .actionbar{
   position:fixed;left:0;right:0;bottom:var(--bar-offset);z-index:45;display:flex;
   box-shadow:var(--shadow-bar);
 }
-.actionbar{padding-bottom:env(safe-area-inset-bottom, 0px)}
+/* The home-indicator inset is padding, so it needs the bar's own paint — left
+   bare it showed the footer through as a dark strip under the buttons. */
+.actionbar{padding-bottom:env(safe-area-inset-bottom, 0px);background:var(--bar-split)}
 /* iOS Safari keeps a fixed bottom:0 element where its auto-hiding toolbar was,
    so page content shows through underneath. Extend each half's colour below
    the bar to cover that gap; it is off-screen when the bar sits flush. */
 @media(max-width:899px){
   .actionbar::after{
     content:"";position:absolute;top:100%;left:0;right:0;height:240px;
-    background:linear-gradient(to right,#fff 0 50%,var(--wa) 50% 100%);
+    background:var(--bar-split);
     pointer-events:none;
   }
 }
 .actionbar a{flex:1;min-height:var(--bar-h);display:flex;align-items:center;justify-content:center;
   gap:10px;text-decoration:none;font:600 16px/1 Inter,sans-serif}
 .actionbar a svg{width:22px;height:22px;flex:none}
-.actionbar .btn-call{border-top:1px solid var(--line);border-right:1px solid var(--line)}
+/* No border on top: --shadow-bar already lifts the bar off the page, and over
+   the dark footer the line read as a stray half-width streak. */
+.actionbar .btn-call{border-right:1px solid var(--line)}
 
 @media(min-width:900px){
   .actionbar{
