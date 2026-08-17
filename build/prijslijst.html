@@ -327,6 +327,24 @@
         color: var(--muted);
       }
 
+      .sample-note {
+        margin: 16px 0 0;
+        padding: 14px 16px;
+        background: #fff8e1;
+        border: 1px solid #e8c46a;
+        border-radius: var(--r);
+        font-size: 15px;
+        line-height: 22px;
+        color: #4d3a00;
+      }
+      .sample-note strong {
+        display: block;
+      }
+      .sample-note a {
+        color: inherit;
+        font-weight: 700;
+      }
+
       .terms {
         margin: 36px 0;
         padding: 20px;
@@ -595,6 +613,15 @@
         </div>
         <p class="meta" id="meta">Laden…</p>
       </div>
+    </div>
+
+    <div class="wrap">
+      <p class="sample-note" id="sampleNote" role="status" hidden>
+        <strong>Let op: dit zijn voorbeeldprijzen.</strong>
+        De actuele prijslijst is nu niet beschikbaar. Bel of app
+        <a href="tel:+31683415676">06 83 41 56 76</a> om de echte prijs te
+        laten bevestigen.
+      </p>
     </div>
 
     <main class="wrap" id="list" aria-live="polite"></main>
@@ -913,28 +940,44 @@
       });
 
       // ---- load -------------------------------------------------------------
+      // The Sheet is the only binding source. The bundled template is a demo
+      // copy, so every row served from it must be flagged as non-binding —
+      // quoting a stale price as if it were today's is worse than no price.
+      async function fetchList(fetcher) {
+        const get = async (url) => {
+          const res = await fetcher(url, { cache: "no-store" });
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          return res.text();
+        };
+        if (SHEET_CSV_URL) {
+          try {
+            return { text: await get(SHEET_CSV_URL), sample: false };
+          } catch (err) {
+            console.error(err);
+          }
+        }
+        return { text: await get(FALLBACK_CSV_URL), sample: true };
+      }
+
       async function load() {
-        const url = SHEET_CSV_URL || FALLBACK_CSV_URL;
         const meta = document.getElementById("meta");
         const cached = (() => {
           try {
-            const c = JSON.parse(sessionStorage.getItem("sa-csv") || "null");
-            return c && Date.now() - c.t < CACHE_MS ? c.text : null;
+            const c = JSON.parse(sessionStorage.getItem("sa-csv2") || "null");
+            return c && Date.now() - c.t < CACHE_MS ? c : null;
           } catch {
             return null;
           }
         })();
 
-        let text = cached;
-        if (!text) {
+        let data = cached;
+        if (!data) {
           try {
-            const res = await fetch(url, { cache: "no-store" });
-            if (!res.ok) throw new Error("HTTP " + res.status);
-            text = await res.text();
+            data = await fetchList((...a) => fetch(...a));
             try {
               sessionStorage.setItem(
-                "sa-csv",
-                JSON.stringify({ t: Date.now(), text }),
+                "sa-csv2",
+                JSON.stringify({ t: Date.now(), ...data }),
               );
             } catch {}
           } catch (err) {
@@ -943,8 +986,9 @@
               "Prijslijst tijdelijk niet beschikbaar. Bel of app 06 83 41 56 76.";
           }
         }
-        if (text) {
-          items = parseCSV(text).filter((i) => i.product);
+        if (data) {
+          items = parseCSV(data.text).filter((i) => i.product);
+          document.getElementById("sampleNote").hidden = !data.sample;
           const d = new Date().toLocaleDateString("nl-NL", {
             day: "numeric",
             month: "long",
@@ -955,10 +999,9 @@
             (catSet.length
               ? `${shown} van ${items.length} producten · gefilterd`
               : `${items.length} producten`) +
-            ` · prijzen bijgewerkt op ${d}` +
-            (SHEET_CSV_URL
-              ? ""
-              : " · DEMO-DATA, nog niet gekoppeld aan het Sheet");
+            (data.sample
+              ? " · voorbeeldprijzen, bel om te bevestigen"
+              : ` · prijzen bijgewerkt op ${d}`);
         }
         renderChips();
         setMode(mode);
@@ -969,7 +1012,7 @@
         .addEventListener("click", () => window.print());
 
       // ---- selftest (open met #selftest) -------------------------------------
-      function selftest() {
+      async function selftest() {
         const a = (c, m) => {
           if (!c) throw new Error("SELFTEST FAILED: " + m);
         };
@@ -1046,9 +1089,25 @@
           "message has address lines",
         );
 
+        // sample fallback: a dead Sheet must flag its data as non-binding
+        const fake = (map) => async (url) =>
+          url in map
+            ? { ok: true, text: async () => map[url] }
+            : { ok: false, status: 500, text: async () => "" };
+        const tpl = "categorie,product\nGroenten,Demo\n";
+        const live = await fetchList(
+          fake({ [SHEET_CSV_URL]: "sheet", [FALLBACK_CSV_URL]: tpl }),
+        );
+        a(live.sample === false, "live Sheet data is not flagged as sample");
+        const fb = await fetchList(fake({ [FALLBACK_CSV_URL]: tpl }));
+        a(
+          fb.sample === true && fb.text === tpl,
+          "dead Sheet falls back to flagged sample data",
+        );
+
         basket = {};
         save();
-        console.log("selftest OK — 20 checks passed");
+        console.log("selftest OK — 22 checks passed");
       }
       if (location.hash === "#selftest") selftest();
       else load();
