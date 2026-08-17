@@ -201,8 +201,15 @@
         margin: 10px 0 0;
       }
 
-      main {
-        padding-bottom: 120px;
+      /* This page has no footer, so nothing else reserves room for the fixed
+         bottom bars and the last block — the PDF button — sat behind them.
+         Derived from --bar-h and --bar-offset (0px, 68px once the order bar
+         shows) so it cannot drift out of sync with either bar. */
+      body {
+        padding-bottom: calc(
+          var(--bar-h) + var(--bar-offset) + env(safe-area-inset-bottom, 0px) +
+            16px
+        );
       }
       .cat {
         font-family: Lora, serif;
